@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+      font-family: Arial, sans-serif;
+      background: #f2f6fa;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .filters label {
+      font-size: 14px;
+    }
+    .filters button {
+      background: #1677ff;
+      border: none;
+      color: #ffffff;
+      padding: 6px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .filters .ad {
+      margin-left: auto;
+      font-size: 14px;
+      background: #fff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    .filters .ad span {
+      background: #28a745;
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+      font-size: 12px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+    }
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+    }
+    .card .icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 8px;
+    }
+    .card{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  min-width: 120px;
+  background: transparent; /* ubah kalau mau card berwarna */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* kotak biru transparan untuk SVG */
+.icon-box{
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(3, 169, 244, 0.12); /* biru transparan */
+  border: 1px solid rgba(3,169,244,0.22);
+  box-shadow: 0 4px 10px rgba(3,169,244,0.04);
+}
+
+/* jika mau SVG lebih besar */
+.icon-box svg{
+  width: 36px;
+  height: 36px;
+  display:block;
+}
+
+/* teks kecil di bawah */
+.text-sm{
+  margin: 0;
+  font-size: 12px;
+  color: #94a3b8; /* abu-abu kebiruan */
+  text-align:center;
+  line-height:1;
+}
+    .card .icon svg {
+  width: 80px;   /* atur ukuran */
+  height: 24px;
+  fill: #1677ff; /* kasih warna (atau ganti: green, red, dsb) */
+  display: inline-block;
+}
+    .row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .progress {
+      background: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 6px;
+      margin: 10px 0;
+    }
+    .progress div {
+      background: #28a745;
+      height: 100%;
+    }
+    .countries {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+    .countries span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+    .countries img {
+      width: 20px;
+      height: 15px;
+      border: 1px solid #ccc;
+    }
+    #map { height: 500px; width: 100%; }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: #fff;
+  color: #222;
+  overflow: hidden;
+}
+.top-menu {
+  display: flex;
+  gap: 20px;
+  padding: 8px 15px;
+  background: #f2f2f2;
+  border-bottom: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+.top-menu span {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.top-menu span:hover {
+  color: #007bff;
+}
+/* Header */
+.header {
+  background: #b30000;
+  color: #fff;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header span { margin-left: 8px; }
+
+/* Sidebar */
+.sidebar {
+  width: 230px;
+  background: #4da6ff;
+  padding-top: 20px;
+}
+
+/* Section */
+.section {
+  border-left: 4px solid #007bff;
+  padding: 10px 15px;
+  margin: 15px;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+.title {
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 6px;
+}
+.row { margin: 4px 0; }
+.row span { font-weight: bold; }
+
+.payment {
+  border-left: 4px solid #000;
+  margin: 15px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  background: #fafafa;
+}
+.app {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 6px 0;
+  background: #fff;
+}
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  margin: 20px 0;
+}
+
+/* Tambahan fix */
+.fixed-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 10;
+  height: 62px;
+  box-sizing: border-box;
+}
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body ala Android */
+body {
+  font-family: "Roboto", "Segoe UI", Arial, sans-serif;
+  background: #f5f7fb;
+  color: #212121;
+  padding: 16px;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: #2196f3;
+  color: #fff;
+  padding: 14px 18px;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 0 0 8px 8px;
+}
+
+/* Sidebar ala Android Drawer */
+.sidebar {
+  width: 230px;
+  background: #ffffff;
+  padding-top: 20px;
+  border-right: 1px solid #ddd;
+}
+.sidebar li {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  color: #ffffff;
+  transition: background 0.2s;
+}
+.sidebar li:hover {
+  background: #ffffff;
+}
+
+/* Card Android */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: translateY(-2px);
+}
+.card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #222;
+}
+
+/* Button Android */
+button, .btn {
+  background: #2196f3;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button:hover, .btn:hover {
+  background: #1976d2;
+}
+
+/* Progress bar ala Android */
+.progress {
+  background: #e0e0e0;
+  border-radius: 50px;
+  height: 6px;
+  overflow: hidden;
+}
+.progress div {
+  background: #4caf50;
+  height: 100%;
+  border-radius: 50px;
+}
+
+/* Input Android */
+input, .form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+input:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 0 2px rgba(33,150,243,0.2);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  background: #323232;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+    
+   .toggle-pin {
+     cursor: pointer;
+     margin-left: 6px;
+     display: inline-flex;
+     vertical-align: middle;
+     width: 18px;
+     height: 18px;
+   }
+   .toggle-pin svg {
+     width: 100%;
+     height: 100%;
+     stroke: #007bff;
+   }
+   .balance {
+     font-weight: bold;
+     color: green;
+   }
+   .bank-card {
+     text-align: center;
+   }
+   .bank-card img {
+     width: 50px;
+     display: block;
+     margin: 0 auto 10px;
+   }
+   * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fb;
+      color: #222;
+      padding: 20px;
+    }
+   
+    /* Top Filters */
+    .filters {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .filters label { font-size: 14px; }
+    .filters input[type="checkbox"] { margin-right: 5px; }
+    .filters button {
+      background: #007bff; color: #fff;
+      border: none; padding: 6px 15px;
+      border-radius: 4px; cursor: pointer;
+    }
+    .filters button:hover { background: #0062cc; }
+    .filters .ad {
+      margin-left: auto;
+      font-size: 14px;
+      background: #e9ffe9;
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid #b2ffb2;
+    }
+/* Animations */
+.fade-in { animation: fadeIn 0.5s ease forwards; }
+@keyframes fadeIn { 
+  from { opacity:0; } 
+  to { opacity:1; } 
+}
+
+.slide-in { animation: slideIn 0.5s ease forwards; }
+@keyframes slideIn { 
+  from { opacity:0; transform:translateY(20px);} 
+  to { opacity:1; transform:translateY(0);} 
+}
+/* Login Page */
+#login-page { display:flex; justify-content:center; align-items:center; height:100vh; }
+.login-form { background:#f0f0f0; padding:30px; border-radius:6px; width:350px; box-shadow:0 0 10px rgba(0,0,0,0.3); animation:fadeIn 0.4s ease; }
+.login-form h1 { text-align:center; margin-bottom:20px; }
+.login-form input { width:100%; padding:10px; margin:10px 0; background:#fff; border:1px solid #ccc; border-radius:4px; color:#121212; }
+.login-form button { width:100%; padding:10px; background:#007bff; border:none; border-radius:4px; color:white; cursor:pointer; animation:pulse 2s infinite; }
+.login-form button:hover { background:#2196f3; box-shadow:0 0 8px #2196f3; }
+@keyframes pulse { 0%{box-shadow:0 0 0px #007bff;} 50%{box-shadow:0 0 10px #007bff;} 100%{box-shadow:0 0 0px #007bff;} }
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+
+    .login-box h2 {
+      font-size: 18px;
+      margin: 0 0 20px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-text {
+      font-size: 12px;
+      color: #777;
+      margin-top: 3px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 9px;
+      font-size: 14px;
+      font-weight: 500;
+      background: #0d6efd;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #0b5ed7;
+    }
+/* Panel Layout */
+#panel { display:none; height:100vh; }
+.sidebar { width:230px; background:#4da6ff; padding-top:20px; flex-shrink:0; transition:width 0.3s ease; overflow:hidden; }
+.sidebar.collapsed { width:60px; }
+.sidebar ul { list-style:none; padding:0; }
+.sidebar li { padding:12px 20px; display:flex; align-items:center; cursor:pointer; transition:background 0.3s; }
+.sidebar li:hover { background:#3399ff; }
+.sidebar svg { width:20px; height:20px; margin-right:10px; fill:#fff; flex-shrink:0; }
+.sidebar.collapsed svg { margin:0 auto; }
+.sidebar.collapsed span { display:none; }
+
+.header { background:#e0e0e0; height:50px; display:flex; justify-content:space-between; align-items:center; padding:0 15px; color:#121212; }
+.main-content { padding:20px; flex-grow:1; overflow-y:auto; background:#ffffff; }
+
+
+/* Tables */
+table { width:100%; border-collapse:collapse; background:#f0f8ff; }
+th, td { padding:10px; text-align:left; }
+th { background:#4da6ff; color:#fff; }
+tr:nth-child(even){ background:#e6f2ff; }
+tr:hover{ background:#cce6ff; }
+
+/* Toast */
+.toast.show { opacity:1; transform:translateX(0); }
+.toast { position:fixed; right:20px; top:20px; background:#333; padding:10px 20px; border-radius:4px; opacity:0; transform:translateX(100%); transition:all 0.4s ease; color:#fff; }
+
+/* Stealth Toggle */
+.stealth-status { font-weight:bold; margin-left:10px; }
+</style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login-page">
+  <div class="login-form">
+    <h1>Вход в панель</h1>
+    <hr>
+    <label for="username">Имя пользователя</label>
+    <input type="text" placeholder="Имя" id="username">
+    <div class="form-text">Ваше имя пользователя</div>
+    <input type="password" placeholder="пароль" id="password">
+    <div class="form-text">Укажите пароль указанный при установке, либо пароль, который Вам выдал другой администратор</div>
+    <button onclick="login()">авторизоваться</button>
+  </div>
+</div>
+
+<!-- Panel -->
+<div id="panel" style="display:flex; flex-direction:column;">
+  <div class="header">
+    <div>
+      <button onclick="toggleSidebar()">
+             <img src="https://l.top4top.io/p_3545jq7as0.png" width="20" alt="logo lukma">
+        </button>
+      <span>LummaC2</span>
+      <span class="stealth-status" id="stealth-status">неактивный</span>
+    </div>
+    <button onclick="logout()">Выход из системы</button>
+  </div>
+  <div class="top-menu">
+  <span oneclick="woi anj">камХак</span>
+  <span oneclick="woi anj">апи</span>
+  <span oneclick="woi anj">охрана полиции</span>
+  <span oneclick="pentol">история разговоров</span>
+</div>
+  <div style="display:flex; flex-grow:1;">
+    <div class="sidebar" id="sidebar">
+      <ul>
+        <li onclick="loadPage('dashboard')"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8v-10h-8v10zm0-18v6h8V3h-8z"/></svg><span>Панель управления</span></li>
+        <li onclick="loadPage('logs')"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/></svg><span>Журналы</span></li>
+        <li onclick="loadPage('wallets')"><svg viewBox="0 0 24 24"><path d="M21 7H3V5h18v2zm0 2H3v10h18V9z"/></svg><span>электронные кошельки</span></li>
+        <li onclick="loadPage('files')"><svg viewBox="0 0 24 24"><path d="M14 2H6v20h12V8l-4-6z"/></svg><span>файлы</span></li>
+        <li onclick="loadPage('search')"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.48 6.48 0 0 0 1.48-5.34C15.37 5.59 12.28 3 8.5 3S1.63 5.59 1.09 8.39c-.54 2.8 1.03 5.39 3.65 6.33a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l5 5 1.5-1.5-5-5z"/></svg><span>поиск</span></li>
+        <li onclick="loadPage('settings')"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.06-.94l2.03-1.58a.5.5 0 0 0 .11-.64l-1.91-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.05 7.05 0 0 0-1.62-.94l-.36-2.54A.5.5 0 0 0 14.4 2h-4.8a.5.5 0 0 0-.5.42l-.36 2.54c-.59.23-1.14.54-1.62.94l-2.39-.96a.5.5 0 0 0-.61.22L2.8 8.84a.5.5 0 0 0 .11.64l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.5.5 0 0 0-.11.64l1.91 3.32c.14.24.42.33.68.22l2.39-.96c.48.4 1.03.71 1.62.94l.36 2.54c.05.26.26.42.5.42h4.8c.24 0 .45-.16.5-.42l.36-2.54c.59-.23 1.14-.54 1.62-.94l2.39.96c.26.11.54.02.68-.22l1.91-3.32a.5.5 0 0 0-.11-.64l-2.03-1.58z"/></svg><span>настройки</span></li>
+         <li onclick="loadPage('builder')"><svg viewBox="0 0 24 24"><path d="M22 2l-1.41 1.41-2.83-2.83L19.17 0H22v2zm-7.66 2.34l7.32 7.32-12.02 12.02L2.32 16.34l12.02-12z"/></svg><span>строитель</span></li>
+      </ul>
+    </div>
+    <div class="main-content fade-in slide-in" id="main-content"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">This is a toast notification</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  function setTheme(theme) {
+      document.body.className = theme; // ganti class body sesuai tema
+    }
+let loggedIn = false;
+
+// user & password valid
+const validUser = "admin";
+const validPass = "1943";
+
+// bikin container notifikasi sekali aja
+const notifContainer = document.createElement("div");
+notifContainer.style.position = "fixed";
+notifContainer.style.top = "20px";
+notifContainer.style.right = "20px";
+notifContainer.style.zIndex = "9999";
+document.body.appendChild(notifContainer);
+
+// fungsi show notif
+function showNotif(type, message) {
+  const card = document.createElement("div");
+  card.style.background = "#cce5ff"; // biru muda
+  card.style.color = "#000";
+  card.style.padding = "12px 16px";
+  card.style.marginTop = "10px";
+  card.style.borderRadius = "8px";
+  card.style.display = "flex";
+  card.style.alignItems = "center";
+  card.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+  card.style.fontFamily = "Arial, sans-serif";
+  card.style.fontSize = "14px";
+  card.style.opacity = "0";
+  card.style.transform = "translateX(100%)";
+  card.style.transition = "all 0.5s ease";
+
+  // ikon SVG
+  let icon = "";
+  if (type === "error") {
+    icon = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="red" width="20" height="20" viewBox="0 0 24 24">
+        <path d="M12 0C5.372 0 0 5.373 0 12c0 6.628 5.372 12 12 12s12-5.372 12-12c0-6.627-5.372-12-12-12zm5 16.59L16.59 17 12 12.41 7.41 17 7 16.59 11.59 12 7 7.41 7.41 7 12 11.59 16.59 7 17 7.41 12.41 12 17 16.59z"/>
+      </svg>`;
+  } else if (type === "success") {
+    icon = `
+      <svg xmlns="http://www.w3.org/2000/svg" fill="green" width="20" height="20" viewBox="0 0 24 24">
+        <path d="M20.285 6.709l-11.285 11.291-5.285-5.291 1.414-1.416 3.871 3.877 9.871-9.877z"/>
+      </svg>`;
+  }
+
+  card.innerHTML = icon + `<span style="margin-left:8px">${message}</span>`;
+  notifContainer.appendChild(card);
+
+  // trigger animasi slide-in
+  requestAnimationFrame(() => {
+    card.style.opacity = "1";
+    card.style.transform = "translateX(0)";
+  });
+
+  // auto hilang setelah 3 detik
+  setTimeout(() => {
+    card.style.opacity = "0";
+    card.style.transform = "translateX(100%)";
+    setTimeout(() => card.remove(), 500); // tunggu animasi selesai
+  }, 3000);
+}
+
+function login() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+
+  if (user === "" || pass === "") {
+    showNotif("error", " Пожалуйста, заполните все поля"); 
+    return;
+  }
+
+  if (user === validUser && pass === validPass) {
+    document.getElementById("login-page").style.display = "none";
+    document.getElementById("panel").style.display = "flex";
+    loggedIn = true;
+    loadPage("dashboard");
+    showNotif("success", "Успешный вход"); // sukses login
+  } else {
+    showNotif("error", "Неверное имя пользователя или пароль");
+  }
+}
+
+function logout() {
+  document.getElementById("panel").style.display = "none";
+  document.getElementById("login-page").style.display = "flex";
+  loggedIn = false;
+  showNotif("success", " Вы вышли из системы"); // notif logout
+}
+
+
+function toggleSidebar(){ 
+  document.getElementById('sidebar').classList.toggle('collapsed'); 
+}
+function loadPage(page){
+  const content=document.getElementById('main-content');
+  content.classList.remove('slide-in','fade-in'); // reset animasi
+  content.innerHTML='';
+  setTimeout(()=>{
+    content.classList.add('slide-in','fade-in'); // animasi aktif
+    if(page==='dashboard'){ loadDashboard(content); }
+    else if(page==='logs'){ loadLogs(content); }
+    else if(page==='wallets'){ loadWallets(content); }
+    else if(page==='files'){ loadFiles(content); }
+    else if(page==='search'){ loadSearch(content); }
+    else if(page==='settings'){ loadSettings(content); }
+    else if(page==='builder'){ loadBuilder(content); }
+  },50);
+}
+
+// ✅ Fungsi loadDashboard baru: tampil "Do not data..." dulu
+function loadDashboard(content){
+  // Tampilkan tulisan “Do not data...” langsung
+  content.innerHTML=`
+        <!-- Header -->
+
+  <!-- Filter Atas -->
+  <div class="filters">
+    <label><input type="checkbox"> Без пустышек</label>
+    <label><input type="checkbox"> Без дублей</label>
+    <button>Применить</button>
+    <div class="ad">Your ad could be here - @lummanowork <span>РЕКЛАМА</span></div>
+  </div>
+
+  <!-- Cards utama -->
+  <div class="cards">
+    <div class="card">
+      <div class="icon-box" role="img" aria-label="icon">
+      <!-- Muka bulat "Belum ada internet" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Offline face</title>
+  <desc id="desc">Circular sad face with crossed wifi symbol indicating no internet</desc>
+
+  <!-- background circle -->
+  <circle cx="60" cy="60" r="54" fill="#ffffff" stroke="#dbeefe" stroke-width="4"/>
+
+  <!-- face shadow for depth -->
+  <ellipse cx="60" cy="75" rx="28" ry="8" fill="rgba(2,24,55,0.03)"/>
+
+  <!-- eyes -->
+  <circle cx="46" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+  <circle cx="74" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+
+  <!-- sad mouth (arc) -->
+  <path d="M42 78 Q60 64 78 78" fill="none" stroke="#0f172a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- wifi waves (above head) -->
+  <g stroke="#0284c7" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M36 30 C46 22, 74 22, 84 30" />
+    <path d="M40 36 C48 30, 72 30, 80 36" stroke-width="2.4"/>
+    <path d="M48 42 C56 38, 64 38, 72 42" stroke-width="1.8"/>
+  </g>
+
+  <!-- cross over wifi -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="38" y1="34" x2="82" y2="74"/>
+    <line x1="82" y1="34" x2="38" y2="74"/>
+  </g>
+
+  <!-- subtle border ring -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="rgba(2,24,55,0.03)" stroke-width="2"/>
+
+</svg>
+  <path d="M6 2a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6H6z"/>
+ </svg>
+</div>     
+            <p class="text-sm text-gray-300 mt-2">Нет активных подключений</p>
+    </div>
+<div class="card">
+  <div class="icon-box" role="img" aria-label="icon">
+<!-- Muka bulat "Belum ada internet" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Offline face</title>
+  <desc id="desc">Circular sad face with crossed wifi symbol indicating no internet</desc>
+
+  <!-- background circle -->
+  <circle cx="60" cy="60" r="54" fill="#ffffff" stroke="#dbeefe" stroke-width="4"/>
+
+  <!-- face shadow for depth -->
+  <ellipse cx="60" cy="75" rx="28" ry="8" fill="rgba(2,24,55,0.03)"/>
+
+  <!-- eyes -->
+  <circle cx="46" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+  <circle cx="74" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+
+  <!-- sad mouth (arc) -->
+  <path d="M42 78 Q60 64 78 78" fill="none" stroke="#0f172a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- wifi waves (above head) -->
+  <g stroke="#0284c7" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M36 30 C46 22, 74 22, 84 30" />
+    <path d="M40 36 C48 30, 72 30, 80 36" stroke-width="2.4"/>
+    <path d="M48 42 C56 38, 64 38, 72 42" stroke-width="1.8"/>
+  </g>
+
+  <!-- cross over wifi -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="38" y1="34" x2="82" y2="74"/>
+    <line x1="82" y1="34" x2="38" y2="74"/>
+  </g>
+
+  <!-- subtle border ring -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="rgba(2,24,55,0.03)" stroke-width="2"/>
+
+</svg>
+  </div>
+            <p class="text-sm text-gray-300 mt-2">Нет активных подключений</p>
+    </div>
+    <div class="card">
+      <div class="icon-box" role="img" aria-label="icon">
+<!-- Muka bulat "Belum ada internet" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Offline face</title>
+  <desc id="desc">Circular sad face with crossed wifi symbol indicating no internet</desc>
+
+  <!-- background circle -->
+  <circle cx="60" cy="60" r="54" fill="#ffffff" stroke="#dbeefe" stroke-width="4"/>
+
+  <!-- face shadow for depth -->
+  <ellipse cx="60" cy="75" rx="28" ry="8" fill="rgba(2,24,55,0.03)"/>
+
+  <!-- eyes -->
+  <circle cx="46" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+  <circle cx="74" cy="52" r="5" fill="#0f172a" opacity="0.95"/>
+
+  <!-- sad mouth (arc) -->
+  <path d="M42 78 Q60 64 78 78" fill="none" stroke="#0f172a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- wifi waves (above head) -->
+  <g stroke="#0284c7" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M36 30 C46 22, 74 22, 84 30" />
+    <path d="M40 36 C48 30, 72 30, 80 36" stroke-width="2.4"/>
+    <path d="M48 42 C56 38, 64 38, 72 42" stroke-width="1.8"/>
+  </g>
+
+  <!-- cross over wifi -->
+  <g stroke="#ef4444" stroke-width="4" stroke-linecap="round">
+    <line x1="38" y1="34" x2="82" y2="74"/>
+    <line x1="82" y1="34" x2="38" y2="74"/>
+  </g>
+
+  <!-- subtle border ring -->
+  <circle cx="60" cy="60" r="58" fill="none" stroke="rgba(2,24,55,0.03)" stroke-width="2"/>
+
+</svg>
+</div>
+            <p class="text-sm text-gray-300 mt-2">Нет активных подключений</p>
+    </div>
+  </div>
+
+  <!-- Chart dan Statistik -->
+  <div class="row2">
+    <div class="card">
+     <div class="icon-box" role="img" aria-label="icon">
+<!-- Muka bulat "Belum ada internet" -->
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="gray">
+  <rect x="6" y="2" width="12" height="20" rx="2" ry="2"/>
+  <circle cx="12" cy="18" r="1" fill="white"/>
+</svg>
+   </div>
+        <p class="text-sm text-gray-300 mt-2">Устройство не подключено</p>
+    </div>
+    <div class="card">
+      <p style="font-size:22px;">0%</p>
+      <p class="text-sm text-gray-300 mt-2">Нет активных подключений</p>
+    </div>
+    <div class="card">
+      <h3>СРА</h3>
+      <p style="font-size:22px;">0%</p>
+            <p class="text-sm text-gray-300 mt-2">Нет активных подключений<br>1 к 16</p>
+    </div>
+  </div>
+
+  <!-- Negara -->
+  <div class="countries">
+    <b>Все страны</b> <span style="color:green;">0 TIER1 (~0%)</span>
+  </div>
+
+  <!-- Map -->
+  <div class="map-wrap">
+  <div class="card">
+    <!-- Versi: ubah src ke PNG yang lo mau. 
+         Contoh ini pakai PNG fallback dari Wikimedia -->
+    <img src="https://d.top4top.io/p_3552hsboj0.jpg" width="1000"
+         alt="World map PNG — will be shown white by CSS filter">
+  </div>
+  `;
+
+  // Setelah 5 detik, hapus tulisan dan tampilkan dashboard lengkap + icon HP
+  setTimeout(()=>{
+    content.innerHTML=`
+        <!-- Header -->
+
+  <!-- Filter Atas -->
+  <div class="filters">
+    <label><input type="checkbox"> Без пустышек</label>
+    <label><input type="checkbox"> Без дублей</label>
+    <button>Применить</button>
+    <div class="ad">Your ad could be here - @lummanowork <span>РЕКЛАМА</span></div>
+  </div>
+
+  <!-- Cards utama -->
+  <div class="cards">
+    <div class="card">
+      <div class="icon-box" role="img" aria-label="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="darkblue">
+  <!-- Bentuk kertas -->
+  <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/>
+  <!-- Garis teks dalam dokumen -->
+  <path d="M8 12h8M8 16h8M8 8h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+</div>     
+            <p class="text-sm text-gray-300 mt-2">16 логов</p>
+    </div>
+<div class="card">
+  <div class="icon-box" role="img" aria-label="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 100 100">
+  <!-- Lingkaran koin hijau -->
+  <circle cx="50" cy="50" r="48" fill="green"/>
+
+  <!-- Teks Rp warna putih biar kontras -->
+  <text x="50%" y="55%" text-anchor="middle" font-size="32" font-family="Arial, sans-serif" fill="white" font-weight="bold">
+    Rp
+  </text>
+</svg>
+  </div>
+            <p class="text-sm text-gray-300 mt-2">1 криптовалютных логов</p>
+    </div>
+    <div class="card">
+      <div class="icon-box" role="img" aria-label="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" viewBox="0 0 24 24">
+  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 
+           2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 
+           3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 
+           0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 
+           3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+  </svg>
+</div>
+            <p class="text-sm text-gray-300 mt-2">1 соседей</p>
+    </div>
+  </div>
+
+  <!-- Chart dan Statistik -->
+  <div class="row2">
+    <div class="card">
+     <div class="icon-box" role="img" aria-label="icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="lightgreen">
+  <rect x="6" y="2" width="12" height="20" rx="2" ry="2"/>
+  <circle cx="12" cy="18" r="1" fill="white"/>
+</svg>
+   </div>
+        <p class="text-sm text-gray-300 mt-2">Samsung galaxy A71</p>
+    </div>
+    <div class="card">
+      <p style="font-size:22px;">97%</p>
+      <p class="text-sm text-gray-300 mt-2">Процент качества</p>
+      <div class="progress"><div style="width:97%"></div></div>
+      <p>Качество трафика: <b style="color:green">Отличное</b></p>
+    </div>
+    <div class="card">
+      <h3>СРА</h3>
+      <p style="font-size:22px;">6.25%</p>
+            <p class="text-sm text-gray-300 mt-2">Кошельков к обычным логам<br>1 к 16</p>
+    </div>
+  </div>
+
+  <!-- Negara -->
+  <div class="countries">
+    <b>Все страны</b> <span style="color:green;">0 TIER1 (~0%)</span>
+    <b>
+    <span><img src="https://j.top4top.io/p_3552vj84p0.png"> IDN (6)</span>
+  </div>
+
+  <!-- Map -->
+  <div class="map-wrap">
+  <div class="card">
+    <!-- Versi: ubah src ke PNG yang lo mau. 
+         Contoh ini pakai PNG fallback dari Wikimedia -->
+    <img src="https://i.top4top.io/p_3552gew3f0.jpg" width="1000"
+         alt="World map PNG — will be shown white by CSS filter">
+  </div>
+    `;
+
+    // Tambahkan icon HP
+    const hpIcon=document.createElement('div');
+    hpIcon.style.display='flex';
+    hpIcon.style.alignItems='center';
+    hpIcon.style.marginBottom='15px';
+    hpIcon.classList.add('fade-in');
+    hpIcon.innerHTML=`
+
+    `;
+    content.prepend(hpIcon);
+
+    showToast('Device connected');
+  },5000);
+}
+function loadLogs(content){ content.innerHTML=`<h2>Журналы</h2><table><tr><p><div class="status-box">
+<div class="status-box">
+<img src="https://img.icons8.com/ios-filled/50/fa314a/hacker.png" 
+alt="Hacked Icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;">
+ЦЕЛЬ ВЗЛОМАННА
+</div>
+
+  <div class="section">
+  <div class="title">Informasi Perangkat</div>
+  <div class="row"><span>OS:</span> Android 13</div>
+  <div class="row"><span>Model:</span> Samsung galaxy A71</div>
+  <div class="row"><span>Browser:</span> Chrome 114.0.5735.196</div>
+  </div>
+  
+  <div class="section">
+  <div class="title">Lokasi</div>
+  <div class="row"><span>IP:</span> 192.168.***.***</div>
+  <div class="row"><span>GPS:</span> -6.17*** , 106.82***</div>
+  <div class="row"><span>Lokasi:</span> Jakarta utara, Indonesia</div>
+  </div>
+  
+  <div class="section">
+  <div class="title">Informasi Jaringan</div>
+  <div class="row"><span>ISP:</span> PT Telkom Indonesia</div>
+  <div class="row"><span>WiFi:</span> Abu bakar</div>
+  <div class="row"><span>MAC:</span> 00:1A:2B:**:**:**</div>
+  </div>
+  
+  <div class="section">
+  <div class="title">Data Sensitif</div>
+  <div class="row"><span>Email:</span> mhmd**ifr@gmail.com</div>
+  <div class="row"><span>Password:</span> ********</div>
+  <div class="row"><span>Cookies:</span> 144 tersimpan</div>
+  </div></p>`;}
+function loadWallets(content){ content.innerHTML=`<h2>кошельки</h2><p>
+    <div class="status-box">
+    <img src="https://img.icons8.com/ios-filled/50/fa314a/hacker.png" 
+    alt="Hacked Icon" style="width:32px;height:32px;vertical-align:middle;margin-right:8px;">
+    
+        <div class="wallet-container">
+          <div class="header">
+            <img src="https://k.top4top.io/p_354520eew0.jpg" width="80" alt="DANA">
+            Кошелек DANA
+          </div>
+          <div class="section">
+            <div class="label">Имя пользователя</div>
+            <div class="value">ivan.petrov</div>
+            <div class="label" style="margin-top:15px;">PIN</div>
+            <div class="value">••••421</div> 
+            <div class="label" style="margain-top:15px;">NOMER</div>
+            <div class="value">6282118121943</div>
+          </div>
+          <div class="section">
+            <div class="label">Баланс</div>
+            <div class="balance">467 Rp</div>
+          </div>
+        </div>
+                <div class="wallet-container">
+          <div class="header">
+            <img src="https://k.top4top.io/p_35522e1w10.png" width="120" alt="paypal">
+            Кошелек PAYPAL
+          </div>
+          <div class="section">
+            <div class="label">Имя пользователя</div>
+            <div class="value">ivan.petrov</div>
+       <p class="text-sm text-gray-300 mt-2">Это устройство не подключено к учетной записи PayPal.
+        .</p>
+</p>`; }
+function loadFiles(content){ content.innerHTML=`<p><section style="margin:20px auto; max-width:720px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px;">
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+    <div style="width:44px; height:44px; border-radius:8px; background:linear-gradient(to bottom right, #ffffff, #4338ca); display:grid; place-items:center; color:#ffffff; font-weight:bold;">
+      T
+    </div>
+    <div style="flex:1; min-width:0;">
+      <h3 style="margin:0; font-size:18px; font-weight:600; color:#ffffff;"></h3>
+      <p style="margin:0; font-size:14px; color:#6b7280;">файлы данных</p>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="font-size:12px; color:#ffffff; padding:2px 8px; border:1px solid #d1d5db; border-radius:9999px; background:#f3f4f6;"
+      </span>
+      <button style="font-size:13px; color:#ffffff; padding:4px 10px; border:1px solid #d1d5db; border-radius:6px; background:#f9fafb; cursor:pointer;">Collapse</button>
+    </div>
+  </div>
+  <div style="border-top:1px solid #e5e7eb; padding-top:12px; font-size:14px; color:#111827;">
+    <p><strong>Email:</strong> mhmda****@mail.com</p>
+    <p><strong>Password:</strong> Tex*****</p>
+  </div>
+</section></p>`; }
+function loadSearch(content){ content.innerHTML=`<h2>поиск</h2><input type="text" placeholder="поиск..."><button>поиск</button>`; }
+function loadSettings(content){ content.innerHTML=`<h2>настройки</h2><p>
+<div class="container">
+
+  <label for="themeColor">цвет темы:</label>
+  <input type="text" id="themeColor" placeholder="#40739e">
+
+  <label for="defaultCategory">Категория файла по умолчанию:</label>
+  <select id="defaultCategory">
+    <option value="credentials">реквизиты для входа</option>
+    <option value="cookies">печенье</option>
+    <option value="wallets">кошельки</option>
+    <option value="system">информация о системе</option>
+  </select>
+
+  <label for="Username">имя пользователя:</label>
+  <input type="text" id="Username" placeholder="Lummaпользователь">
+
+  <label for="Email">Электронная почта:</label>
+  <input type="text" id="Email" placeholder="Lumma@gmail.com">
+
+  <label for="customDump">пользовательский(TXT.формат):</label>
+  <textarea id="customDump" rows="6" placeholder="введите сюда содержимое файла..."></textarea>
+
+  <button onclick="saveSettings()">сохранить настройки</button>
+</div></p>`; }
+function loadBuilder(content){ content.innerHTML=`<h2>строитель</h2><p>
+<div class="container">
+
+  <label for="fileName">имя файла (TXT):</label>
+  <input type="text" id="fileName" placeholder="e.g. учетные данные.txt">
+
+  <label for="fileContent">содержимое файла:</label>
+  <textarea id="fileContent" rows="6" placeholder="введите сюда содержимое файла..."></textarea>
+
+  <button onclick="addFile()">добавить файл</button>
+
+  <div class="file-list" id="fileList"></div>
+
+  <button onclick="downloadAll()">скачать zip</button>
+</div>
+</p>`; }
+
+// 
+// Fake country logs (coords + jumlah)
+var countries = [
+  {name:"India", lat:20.5937, lon:78.9629, count:6},
+  {name:"Malaysia", lat:4.2105, lon:101.9758, count:2},
+  {name:"Benin", lat:9.3077, lon:2.3158, count:1},
+  {name:"Germany", lat:51.1657, lon:10.4515, count:1},
+  {name:"Italy", lat:41.8719, lon:12.5674, count:1},
+  {name:"New Zealand", lat:-40.9006, lon:174.8860, count:1},
+  {name:"Papua New Guinea", lat:-6.3150, lon:143.9555, count:1},
+  {name:"Philippines", lat:12.8797, lon:121.7740, count:1},
+  {name:"Pakistan", lat:30.3753, lon:69.3451, count:1},
+  {name:"Turkey", lat:38.9637, lon:35.2433, count:1}
+];
+
+countries.forEach(c => {
+  L.circleMarker([c.lat, c.lon], {
+    radius: 8,
+    color: "#007bff",
+    fillColor: "#007bff",
+    fillOpacity: 0.6
+  }).addTo(map)
+    .bindPopup(`<b>${c.name}</b><br>Logs: ${c.count}`);
+});
+/* halaman lain (logs, wallets, dll) tetap sama persis */
+
+</script>
+</body>
+</html>
